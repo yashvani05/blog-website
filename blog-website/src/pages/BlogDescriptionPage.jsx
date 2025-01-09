@@ -4,18 +4,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 const BlogDescriptionPage = () => {
     const selectedBlogById = useSelector((state) => state.selectedBlogById);
-    const { blogId } = useParams(); // Get blogId from URL params
+    const { blogId } = useParams(); 
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (!selectedBlogById) {
-            // Dispatch the action to fetch blog by ID from the state
             dispatch(setSelectedBlogById(blogId));
         }
     }, [dispatch, blogId, selectedBlogById]);
 
     if (!selectedBlogById) {
-        // Show loading or fallback UI while the blog data is being fetched
         return <div>Loading...</div>;
     }
 

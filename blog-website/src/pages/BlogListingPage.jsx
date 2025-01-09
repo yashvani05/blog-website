@@ -12,11 +12,9 @@ const BlogListingPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
-  // Initialize search state from query params
   const [blogSearch, setBlogSearch] = useState(searchParams.get('search') || '');
 
   useEffect(() => {
-    // Apply filters based on query params when the component mounts
     const searchQuery = searchParams.get('search') || '';
     const pageQuery = parseInt(searchParams.get('page'), 10) || 1;
     setBlogSearch(searchQuery);
@@ -29,14 +27,12 @@ const BlogListingPage = () => {
     setBlogSearch(value);
     dispatch(filterBlogs(value));
 
-    // Update query params
     setSearchParams({ search: value, page: 1 });
   };
 
   const handlePageChange = (page) => {
     dispatch(setCurrentPage(page));
 
-    // Update query params
     setSearchParams({ search: blogSearch, page });
   };
 
