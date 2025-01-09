@@ -2,7 +2,7 @@ import React from 'react';
 
 const ProfilePage = () => {
     return (
-        <div className="min-h-screen bg-gray-100 p-6">
+        <div className="bg-gray-100 p-6">
             <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
                 <div className="flex lg:flex-row flex-col items-center justify-center space-y-6 lg:space-y-0 lg:space-x-6">
                     <div className="w-32 h-32 rounded-full overflow-hidden">

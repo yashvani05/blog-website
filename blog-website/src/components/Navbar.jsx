@@ -1,5 +1,5 @@
-import { Link, useLocation } from 'react-router-dom';
 import { FaBlog, FaUser } from 'react-icons/fa'; // Import the FontAwesome icons
+import { Link, useLocation } from 'react-router-dom';
 
 const Navbar = () => {
     const location = useLocation(); // Get the current location
@@ -24,12 +24,15 @@ const Navbar = () => {
                     </Link>
                 </div>
             </div>
-
             {/* Conditional welcome message */}
             <div className="w-full mx-auto text-center animate-fadeInUp">
                 {location.pathname === '/' ? (
                     <span className="text-xl font-semibold">
                         Welcome To <span className='text-green-500'>Blogs</span> Of Yash
+                    </span>
+                ) : location.pathname.startsWith('/blog/') ? (
+                    <span className="text-xl font-semibold">
+                        Welcome To <span className='text-green-500'>Description</span> Of Yash
                     </span>
                 ) : (
                     <span className="text-xl font-semibold">

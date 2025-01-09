@@ -1,6 +1,6 @@
 const BlogCard = ({ blog, onClick }) => {
     return (
-        <div key={blog.id} onClick={() => onClick(blog)} class="max-w-sm rounded-[20px] overflow-hidden shadow-lg border border-black bg-white hover:shadow-2xl transition-shadow duration-300 ease-in-out transform hover:scale-105">
+        <div key={blog.id} onClick={() => onClick(blog)} class="max-w-sm rounded-xl overflow-hidden shadow-lg border border-black bg-white transition-all hover:shadow-sm hover:scale-105">
             <img class="w-full h-56 object-cover" src={blog.image} alt="Blog Image" />
             <div class="p-5 h-64 flex flex-col justify-between">
                 <h2

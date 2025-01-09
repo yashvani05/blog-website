@@ -1,12 +1,12 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import blogs from './data/blogs.json';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import BlogListingPage from './pages/BlogListingPage';
+import blogs from './data/blogs.json';
 import BlogDescriptionPage from './pages/BlogDescriptionPage';
-import { setBlogs } from './redux/blogAction/blogAction';
+import BlogListingPage from './pages/BlogListingPage';
 import ProfilePage from './pages/ProfilePage';
+import { setBlogs } from './redux/blogAction/blogAction';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,6 @@ const App = () => {
   useEffect(() => {
     dispatch(setBlogs(blogs));
   }, [dispatch]);
-
   return (
     <Router>
       <Navbar />

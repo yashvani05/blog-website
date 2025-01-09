@@ -1,8 +1,9 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams, useRoutes, useSearchParams } from 'react-router-dom';
 import BlogCard from '../components/BlogCard';
 import Pagination from '../components/Pagination';
 import { filterBlogs, setCurrentPage, setSelectedBlog } from '@/redux/blogAction/blogAction';
+import { useState, useEffect } from 'react';
 
 const BlogListingPage = () => {
   const { filteredBlogs, currentPage, blogsPerPage } = useSelector(
@@ -10,14 +11,40 @@ const BlogListingPage = () => {
   );
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  // Initialize search state from query params
+  const [blogSearch, setBlogSearch] = useState(searchParams.get('search') || '');
 
-  const handleSearch = (e) => dispatch(filterBlogs(e.target.value));
-  const handlePageChange = (page) => dispatch(setCurrentPage(page));
+  useEffect(() => {
+    // Apply filters based on query params when the component mounts
+    const searchQuery = searchParams.get('search') || '';
+    const pageQuery = parseInt(searchParams.get('page'), 10) || 1;
+    setBlogSearch(searchQuery);
+    dispatch(filterBlogs(searchQuery));
+    dispatch(setCurrentPage(pageQuery));
+  }, [searchParams, dispatch]);
+
+  const handleSearch = (e) => {
+    const value = e.target.value;
+    setBlogSearch(value);
+    dispatch(filterBlogs(value));
+
+    // Update query params
+    setSearchParams({ search: value, page: 1 });
+  };
+
+  const handlePageChange = (page) => {
+    dispatch(setCurrentPage(page));
+
+    // Update query params
+    setSearchParams({ search: blogSearch, page });
+  };
+
   const selectBlog = (blog) => {
     dispatch(setSelectedBlog(blog));
     navigate(`/blog/${blog.id}`);
   };
-
+  
   const startIndex = (currentPage - 1) * blogsPerPage;
   const paginatedBlogs = filteredBlogs.slice(startIndex, startIndex + blogsPerPage);
 
@@ -27,9 +54,10 @@ const BlogListingPage = () => {
         type="text"
         placeholder="Search blogs..."
         className="w-full mb-4 px-4 py-2 border rounded-[10px]"
+        value={blogSearch}
         onChange={handleSearch}
       />
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 justify-items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 justify-items-center">
         {paginatedBlogs.map((blog) => (
           <BlogCard key={blog.id} blog={blog} onClick={selectBlog} />
         ))}

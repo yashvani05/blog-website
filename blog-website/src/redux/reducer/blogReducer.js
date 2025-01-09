@@ -4,7 +4,7 @@ const initialState = {
   selectedBlog: null,
   selectedBlogById: null,
   currentPage: 1,
-  blogsPerPage: 6,
+  blogsPerPage: 8,
 };
 
 const blogReducer = (state = initialState, action) => {
